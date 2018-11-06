@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringBuilderTests", "StringBuilderTests\StringBuilderTests.csproj", "{9255C320-9AE9-4E1D-B46B-8B296B1B69C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9255C320-9AE9-4E1D-B46B-8B296B1B69C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9255C320-9AE9-4E1D-B46B-8B296B1B69C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9255C320-9AE9-4E1D-B46B-8B296B1B69C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9255C320-9AE9-4E1D-B46B-8B296B1B69C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {117D7D33-BA57-4995-9661-D9AF3FA23374}
+	EndGlobalSection
+EndGlobal
