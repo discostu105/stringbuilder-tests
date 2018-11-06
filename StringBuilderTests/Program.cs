@@ -106,8 +106,8 @@ namespace StringBuilderTests {
 		private string s;
 		private int pos;
 
-		public FastUnsafeStringBuilder(int length) {
-			s = new string('\0', length);
+		public FastUnsafeStringBuilder(int maxlength) {
+			s = new string('\0', maxlength);
 			pos = 0;
 		}
 
