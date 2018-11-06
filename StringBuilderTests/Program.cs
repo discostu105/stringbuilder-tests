@@ -78,7 +78,7 @@ namespace StringBuilderTests {
 		}
 
 		public static void Main(string[] args) {
-			Console.WriteLine(new Program().ConcatSpansFastUnsafeStringBuilder(teststring));
+			//Console.WriteLine(new Program().ConcatSpansFastUnsafeStringBuilder(teststring));
 			var summary = BenchmarkRunner.Run<Program>();
 		}
 	}
@@ -93,6 +93,7 @@ namespace StringBuilderTests {
 		}
 
 		public void Append(ReadOnlySpan<char> str) {
+			if (pos + str.Length > span.Length) throw new IndexOutOfRangeException();
 			str.CopyTo(span.Slice(pos));
 			pos += str.Length;
 		}
@@ -112,6 +113,7 @@ namespace StringBuilderTests {
 		}
 
 		public unsafe void Append(ReadOnlySpan<char> str) {
+			if (pos + str.Length > s.Length) throw new IndexOutOfRangeException();
 			fixed (char* source = str)
 			fixed (char* target = s) {
 				Unsafe.CopyBlock(target + pos, source, (uint)str.Length * sizeof(char));

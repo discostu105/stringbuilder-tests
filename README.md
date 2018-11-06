@@ -4,6 +4,8 @@ Follow up on this stackoverflow question: https://stackoverflow.com/questions/53
 
 Experiments to try to create a non-allocating StringBuilder that's as fast as possible.
 
+__The code in this repository is totally experimental and not well tested at all. Use at your own risk!__
+
 ``` ini
 
 BenchmarkDotNet=v0.11.2, OS=Windows 10.0.17134.345 (1803/April2018Update/Redstone4)
