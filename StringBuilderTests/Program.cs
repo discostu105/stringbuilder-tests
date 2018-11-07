@@ -49,7 +49,7 @@ namespace StringBuilderTests {
 		public string ConcatSpansFastBufferStringBuilder(string longstring) {
 			var span = longstring.AsSpan();
 			Span<char> buf = stackalloc char[longstring.Length];
-			var fsb = new FastBufferStringBuilder(buf, longstring.Length);
+			var fsb = new FastBufferStringBuilder(buf);
 			fsb.Append(span.Slice(40, 10));
 			fsb.Append(span.Slice(30, 10));
 			fsb.Append(span.Slice(20, 10));
@@ -124,7 +124,7 @@ namespace StringBuilderTests {
 		private Span<char> span;
 		private int pos;
 
-		public FastBufferStringBuilder(Span<char> buffer, int maxlength) {
+		public FastBufferStringBuilder(Span<char> buffer) {
 			span = buffer;
 			pos = 0;
 		}
