@@ -35,9 +35,21 @@ namespace StringBuilderTests {
 			return targetspan.ToString();
 		}
 
-		public string ConcatSpansFastStringBuilder(string longstring) {
+		public unsafe string ConcatSpansFastStringBuilder(string longstring) {
 			var span = longstring.AsSpan();
 			var fsb = new FastStringBuilder(longstring.Length);
+			fsb.Append(span.Slice(40, 10));
+			fsb.Append(span.Slice(30, 10));
+			fsb.Append(span.Slice(20, 10));
+			fsb.Append(span.Slice(10, 10));
+			fsb.Append(span.Slice(0, 10));
+			return fsb.ToString();
+		}
+
+		public string ConcatSpansFastBufferStringBuilder(string longstring) {
+			var span = longstring.AsSpan();
+			Span<char> buf = stackalloc char[longstring.Length];
+			var fsb = new FastBufferStringBuilder(buf, longstring.Length);
 			fsb.Append(span.Slice(40, 10));
 			fsb.Append(span.Slice(30, 10));
 			fsb.Append(span.Slice(20, 10));
@@ -73,12 +85,17 @@ namespace StringBuilderTests {
 		}
 
 		[Benchmark]
+		public void ConcatSpansFastBufferStringBuilderBenchmark() {
+			ConcatSpansFastBufferStringBuilder(teststring);
+		}
+
+		[Benchmark]
 		public void ConcatSpansFastUnsafeStringBuilderBenchmark() {
 			ConcatSpansFastUnsafeStringBuilder(teststring);
 		}
 
 		public static void Main(string[] args) {
-			//Console.WriteLine(new Program().ConcatSpansFastUnsafeStringBuilder(teststring));
+			Console.WriteLine(new Program().ConcatSpansFastBufferStringBuilder(teststring));
 			var summary = BenchmarkRunner.Run<Program>();
 		}
 	}
@@ -89,6 +106,26 @@ namespace StringBuilderTests {
 
 		public FastStringBuilder(int maxlength) {
 			span = new Span<char>(new char[maxlength]);
+			pos = 0;
+		}
+
+		public void Append(ReadOnlySpan<char> str) {
+			if (pos + str.Length > span.Length) throw new IndexOutOfRangeException();
+			str.CopyTo(span.Slice(pos));
+			pos += str.Length;
+		}
+
+		public override string ToString() {
+			return span.Slice(0, pos).ToString();
+		}
+	}
+
+	public ref struct FastBufferStringBuilder {
+		private Span<char> span;
+		private int pos;
+
+		public FastBufferStringBuilder(Span<char> buffer, int maxlength) {
+			span = buffer;
 			pos = 0;
 		}
 
